@@ -20,16 +20,21 @@ main(void)
   dup(0);  // stderr
 
   for(;;){
-    printf(1, "Practica 2\n");
+	 // Cuando cambio "init: starting sh\n" por "STARTING JARVIS!" se muestra mi mensaje antes de iniciar
+	 // nuestro  init.c
+    printf(1, "STARTING JARVIS!");
     pid = fork();
     if(pid < 0){
       printf(1, "init: fork failed\n");
       exit();
     }
     if(pid == 0){
-	  //1) Cuando paso a ls se queda en un for infinito pasando por las funciones
-      exec("programax", argv);
-	  //2) Cuando paso un programa inexistente EL EXEC falla por no encontrar el programa 
+		//Cuando corre sh todo sale normal y podemos entrar a ejecutar todo
+		//Cuando se cambia sh por ls se genera un bucle 
+		//infinito de ls o sea muestra los documentos una y otra vez y se ejecuta el mensaje de "STARTING JARVIS!"
+		//Cuando se cambia por "no hay problema" surge el mensaje modificado muchas veces mas init: exec sh failed\n
+		//Cuando cambio todo de regreso funciona perfecto como en un principio
+      exec("sh", argv);
       printf(1, "init: exec sh failed\n");
       exit();
     }
